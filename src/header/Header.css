@@ -1,0 +1,79 @@
+.header {
+    background-color: #131921;
+    display: flex;
+    align-items: center;
+    position: sticky; 
+    top: 0;
+    z-index: 100;
+}
+  /* Stick when we scroll down keeps the header visible, 
+  or else header will scroll and we wont see it*/
+  
+.header__logo {
+    width: 50px;
+    object-fit: contain;
+}
+
+.header__title {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 30px;
+    color: #fff;
+    letter-spacing: 5px;
+}
+
+.header__search {
+    display: flex;
+    flex: 1;
+}
+/*Flex helps us make it 1 row, with out it it will be 1 row for each item*/
+.header__searchIcon {
+    padding: 5px;
+    height: 22px !important;
+    background-color: #cd9042;
+}
+
+.header__searchInput {
+    height: 12px;
+    padding: 10px;
+    border: none;
+    width: 100%;
+}
+
+.header__nav {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.header__link {
+    color: white;
+    text-decoration: none;
+}
+
+/*flex-direction : put elements as a column or as a row*/
+/*Margin is outside component, padding is outside the component*/
+.header__option {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.header__lineOne {
+    font-size: 13px;
+}
+
+.header__lineTwo {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.header__optionBasket {
+    display: flex;
+    align-items: center;
+}
+
+.header__basketCount {
+    margin-left: 10px;
+    margin-right: 10px;
+}
