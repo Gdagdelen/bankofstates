@@ -15,7 +15,7 @@ const items = [
     src: banner3,
   },
 ];
-/* function Banner(){    -- instead we used "const Banner = (props) =>" */
+
 const Banner = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
@@ -39,7 +39,7 @@ const Banner = (props) => {
         onExited={() => setAnimating(false)}
         key={item.src}
       >
-        <img src={item.src} />
+        <img src={item.src} alt = ""/>
       </CarouselItem>
     );
   });
