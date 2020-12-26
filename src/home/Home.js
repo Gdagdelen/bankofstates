@@ -1,7 +1,7 @@
 import React from "react";
 import "./Home.css";
 import Product from "../product/Product.js";
-// import Price from "../price/Price.js";
+import Price from "../price/Price.js";
 import About from "../about/About.js";
 import silver from "../images/card/silver.jpg";
 import gold from "../images/card/gold.jpg";
@@ -36,6 +36,7 @@ const Home = () => {
                 price={800}
                 image={platinum}/>
             </div>
+            <Price />
         </div>
     )
 }

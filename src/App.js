@@ -2,6 +2,7 @@ import './App.css';
 import { BrowserRouter as Router ,Switch , Route } from "react-router-dom";
 import Header from "./header/Header";
 import Home from "./home/Home";
+import Footer from "./footer/Footer";
 
 // Switch is used for identigying unique part
 // without switch (/ because of this), we will see Home in every page
@@ -17,6 +18,7 @@ function App() {
       <Route path="/" component={Home} /> 
       {/* <Route path="/">Home</Route> */}
      </Switch>
+     <Footer />
    </div>
  </Router>
  );
