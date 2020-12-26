@@ -110,7 +110,7 @@ function Footer() {
                     <Link to={"/"}>Terms & Conditions</Link>
                   </li>
                   <li>
-                    <Link to={"/"}>Privacy Policy</Link>
+                    <Link to={"/"}>Privagit cy Policy</Link>
                   </li>
                   <li>
                     <Link to={"/"}>Sitemap</Link>
