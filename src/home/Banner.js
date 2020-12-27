@@ -4,19 +4,9 @@ import banner2 from "../images/banner2.png";
 import banner3 from "../images/banner3.png";
 import { Carousel, CarouselItem, CarouselControl } from "reactstrap";
 
-const items = [
-  {
-    src: banner1,
-  },
-  {
-    src: banner2,
-  },
-  {
-    src: banner3,
-  },
-];
+const items = [{src:banner1},{src:banner2},{src:banner3}];
 
-const Banner = (props) => {
+function Banner()  {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
 
@@ -46,19 +36,20 @@ const Banner = (props) => {
 
   return (
     <Carousel activeIndex={activeIndex} next={next} previous={previous}>
-      {slides}
-      <CarouselControl
-        direction="prev"
-        directionText="Previous"
-        onClickHandler={previous}
-      />
-      <CarouselControl
-        direction="next"
-        directionText="Next"
-        onClickHandler={next}
-      />
-    </Carousel>
+    {slides}
+    <CarouselControl
+      direction="prev"
+      directionText="Previous"
+      onClickHandler={previous}
+    />
+    <CarouselControl
+      direction="next"
+      directionText="Next"
+      onClickHandler={next}
+    />
+    </Carousel>  
   );
-};
+}
 
 export default Banner;
+
