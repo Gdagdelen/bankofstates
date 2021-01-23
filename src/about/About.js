@@ -24,7 +24,7 @@ function About() {
                 <p>
                   Internet Banking is a convenient way to do banking from the
                   comfort of your home or office. Avoid the queue or delays and
-                  try our simple and secure Internet Banking facility for an
+                  try our simple and secure I nternet Banking facility for an
                   unmatched online banking experience.
                 </p>
               </div>

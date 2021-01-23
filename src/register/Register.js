@@ -1,15 +1,20 @@
-import React from 'react';
-import { Formik,Form, Field } from "formik";
-import * as Yup from "yup";
-import { TextField } from '@material-ui/core';
+import * as React from "react";
+import { Formik, Form, Field } from "formik";
 import { Button, LinearProgress } from "@material-ui/core";
+import { TextField } from "formik-material-ui";
+import service from "../service/bankService";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import * as Yup from "yup";
 import "./Register.css";
 
+toast.configure();
 const RegisterSchema = Yup.object().shape({
   firstName: Yup.string().required("Required"),
   lastName: Yup.string().required("Required"),
   password: Yup.string().required("Required"),
   dob: Yup.string().required("Required"),
+  username: Yup.string().required("Required"),
   confirmPassword: Yup.string().oneOf(
     [Yup.ref("password"), null],
     "Passwords must match"
@@ -30,9 +35,6 @@ const RegistrationForm = (props) => (
               type="text"
               label="First Name"
             />
-            {props.errors.firstName && props.touched.firstName ? (
-              <div>{props.errors.firstName}</div>
-            ) : null}
           </div>
           <div className="col-lg-2 text-center p-3">
             <Field
@@ -41,27 +43,10 @@ const RegistrationForm = (props) => (
               type="text"
               label="Last Name"
             />
-            {props.errors.lastName && props.touched.lastName ? (
-              <div>{props.errors.lastName}</div>
-            ) : null}
           </div>
         </div>
         <div className="row justify-content-start">
           <div className="col-lg-2 p-3">
-            {/*
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                id="date-picker-dialog"
-                label="Date of Birth"
-                format="dd/MM/yyyy"
-                value={props.values.dob}
-                onChange={(value) => props.setFieldValue("dob", value)}
-                KeyboardButtonProps={{
-                  "aria-label": "change date",
-                }}
-              />
-            </MuiPickersUtilsProvider>
-              */}
             <Field
               component={TextField}
               name="dob"
@@ -79,9 +64,33 @@ const RegistrationForm = (props) => (
               type="email"
               label="Email"
             />
-            {props.errors.email && props.touched.email ? (
-              <div>{props.errors.email}</div>
-            ) : null}
+          </div>
+        </div>
+        <div className="row justify-content-start">
+          <div className="col-lg-2 p-3">
+            <Field
+              component={TextField}
+              name="username"
+              type="text"
+              label="User Name"
+            />
+          </div>
+          <div className="col-lg-4 p-3">
+            <div id="checkbox-group">Role</div>
+            <div className="row">
+              <div className="col-lg-2">
+                <label className="p3">
+                  <Field type="checkbox" name="role" value="user" />
+                  User
+                </label>
+              </div>
+              <div className="col-lg-2">
+                <label className="p3">
+                  <Field type="checkbox" name="role" value="admin" />
+                  Admin
+                </label>
+              </div>
+            </div>
           </div>
         </div>
         <div className="row justify-content-start">
@@ -92,9 +101,6 @@ const RegistrationForm = (props) => (
               label="Password"
               name="password"
             />
-            {props.errors.password && props.touched.password ? (
-              <div>{props.errors.password}</div>
-            ) : null}
           </div>
           <div className="col-lg-2 p-3">
             <Field
@@ -103,9 +109,6 @@ const RegistrationForm = (props) => (
               label="Confirm Password"
               name="confirmPassword"
             />
-            {props.errors.confirmpassword && props.touched.confirmpassword ? (
-              <div>{props.errors.confirmpassword}</div>
-            ) : null}
             {props.isSubmitting && <LinearProgress />}
           </div>
         </div>
@@ -128,25 +131,39 @@ const RegistrationForm = (props) => (
 );
 const Register = () => {
   return (
-    <Formik
-      initialValues={{
-        firstName: "",
-        lastName: "",
-        dob: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      }}
-      validationSchema={RegisterSchema}
-      onSubmit={(values, actions) => {
-        setTimeout(() => {
+    <div>
+      <Formik
+        initialValues={{
+          firstName: "",
+          lastName: "",
+          dob: "",
+          email: "",
+          username: "",
+          role: ["user"],
+          password: "",
+          confirmPassword: "",
+        }}
+        validationSchema={RegisterSchema}
+        onSubmit={(values, actions) => {
+          console.log("Object", values);
+          service.register(values).then((response) => {
+            if (response.status === 200 && response.data.success) {
+              toast.success(response.data.message, {
+                position: toast.POSITION.TOP_CENTER,
+              });
+              actions.resetForm();
+            } else {
+              toast.error(response.data.message, {
+                position: toast.POSITION.TOP_CENTER,
+              });
+            }
+          });
           actions.setSubmitting(false);
-          alert(JSON.stringify(values));
-        }, 500);
-        actions.resetForm();
-      }}
-      component={RegistrationForm}
-    ></Formik>
+        }}
+        component={RegistrationForm}
+      ></Formik>
+      <ToastContainer />
+    </div>
   );
 };
 export default Register;

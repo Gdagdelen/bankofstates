@@ -1,34 +1,34 @@
+import './App.css';
 import React from "react";
-import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {BrowserRouter as Router ,Switch , Route} from "react-router-dom";
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
+import Home from './home/Home';
 import Login from "./login/Login";
-import Home from "./home/Home";
 import Register from "./register/Register";
+import User from './user/User';
+import Admin from './admin/Admin';
 
-// Switch is used for identigying unique part
-// without switch (/ because of this), we will see Home in every page
-// 
+
 function App() {
- return (
- <Router>
-   <div>
-   <Header />
-   <Switch>
-      <Route path="/login">
-        <Login />
-      </Route>
-      <Route path="/register">
-        <Register />
-      </Route>
-      <Route path="/" component={Home} /> 
-      {/* <Route path="/">Home</Route> */}
-     </Switch>
-     <Footer />
-   </div>
- </Router>
- );
+  return (
+   
+    <Router>
+      <div className="App">
+      <Header />
+      <Switch>
+      <Route path="/login"> <Login/> </Route>
+      <Route path="/admin"> <Admin /> </Route>
+      <Route path="/user"> <User/> </Route>
+      <Route path="/logout"><h1> Logout</h1> </Route>
+      <Route path="/register"><Register /></Route>
+      <Route path="/" component={Home}/>
+      </Switch>
+      <Footer />
+       </div>
+    </Router>
+   
+  );
 }
 
 export default App;

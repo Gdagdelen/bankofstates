@@ -4,6 +4,15 @@
   .about-us-area .about-us-wrap {
     position: relative;
   }
+  .section-title .subtitle {
+    position: relative;
+    font-size: 18px;
+    font-weight: 500;
+    color: teal;
+    margin-bottom: 14px;
+    display: inline-block;
+  }
+
   .about-us-area .about-us-details .section-title {
     margin-bottom: 0;
   }
