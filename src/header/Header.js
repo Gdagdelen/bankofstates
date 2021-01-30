@@ -8,8 +8,17 @@ import "./Header.css";
 import { useStateValue } from "../StateProvider";
 import AdminMenu from "../menus/AdminMenu";
 import UserMenu from "../menus/UserMenu";
+import { useHistory } from "react-router";
+
 function Header() {
   const [{ cart, userInfo }, dispatch] = useStateValue();
+  const history = useHistory();
+
+  const logout = () => {
+    localStorage.setItem("auth", "");
+    history.push("/");
+  };
+  
   return (
     <div>
       <nav className="header">
@@ -48,21 +57,17 @@ function Header() {
             </Link>
           </div>
         )}
+        {userInfo && userInfo.user && userInfo.user.isAdmin && <AdminMenu />}
+        {userInfo && userInfo.user && !userInfo.user.isAdmin && <UserMenu />}
         {userInfo && userInfo.user && (
           <div className="header__nav header__link">
-            <div className="header__option">
+          <div className="header__option">
               <span className="header__lineOne">Welcome</span>
               <span className="header__lineTwo">
-                {userInfo && userInfo.user && userInfo.user.isAdmin && (
-                  <AdminMenu />
-                )}
-                {userInfo && userInfo.user && !userInfo.user.isAdmin && (
-                  <UserMenu />
-                )}
                 {userInfo.user.firstName} {userInfo.user.lastName}
               </span>
             </div>
-            <Link to="/" className="header__link">
+            <Link to={"/logout"} className="header__link">
               <div className="header__option">
                 <span className="header__lineOne">
                   <ExitToApp />
@@ -76,4 +81,5 @@ function Header() {
     </div>
   );
 }
+
 export default Header;

@@ -1,4 +1,6 @@
 import React from "react";
+import { useStateValue } from "../StateProvider";
+import { useHistory } from "react-router";
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 import AccountBalanceWallet from "@material-ui/icons/AccountBalanceWallet";
@@ -17,6 +19,7 @@ import CardIcon from "../components/Card/CardIcon.js";
 import CardFooter from "../components/Card/CardFooter.js";
 import PlotlyChart from "../chart/PlotlyChart";
 import styles from "../styles/dashboardStyle.js";
+
 const useStyles = makeStyles(styles);
 const barData = [
   {
@@ -58,8 +61,17 @@ const transferData = [
 ];
 const Admin = () => {
   const classes = useStyles();
+  const [{ userInfo }, dispatch] = useStateValue();
+  const history = useHistory();
   return (
     <div>
+     {!userInfo && history.push("/login")}
+      {userInfo &&
+        userInfo.user &&
+        !userInfo.user.isAdmin &&
+        history.push("/login")}
+      {userInfo && userInfo.user && userInfo.user.isAdmin &&(
+        <div>
       <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
@@ -162,6 +174,8 @@ const Admin = () => {
           </Card>
         </GridItem>
       </GridContainer>
+    </div>
+      )}
     </div>
   );
 };
