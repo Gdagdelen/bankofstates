@@ -17,23 +17,29 @@ const UserMenu = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const showDashboard = () => {
+    history.push("/user");
+    setAnchorEl(null);
+  };
+  
   const handleDeposit = () => {
     history.push("/deposit");
     setAnchorEl(null);
   };
-  const handleWithdrawal = () => {
-    history.push("/withdrawal");
+  const handleWithdraw = () => {
+    history.push("/withdraw");
     setAnchorEl(null);
   };
+  const handleAddRecipient = () => {
+    history.push("/addRecipient");
+    setAnchorEl(null);
+  };
+  
   const handleTransfer = () => {
     history.push("/transfer");
     setAnchorEl(null);
   };
-  const handleTransaction = () => {
-    history.push("/transaction");
-    setAnchorEl(null);
-  };
+ 
   return (
     <div>
       <Button
@@ -52,10 +58,11 @@ const UserMenu = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+        <MenuItem onClick={showDashboard}>Dashboard</MenuItem>
         <MenuItem onClick={handleDeposit}>Deposit</MenuItem>
-        <MenuItem onClick={handleWithdrawal}>Withdrawal</MenuItem>
+        <MenuItem onClick={handleWithdraw}>Withdraw</MenuItem>
         <MenuItem onClick={handleTransfer}>Transfer</MenuItem>
-        <MenuItem onClick={handleTransaction}>Transaction</MenuItem>
+        <MenuItem onClick={handleAddRecipient}>Add Recipient</MenuItem>
       </Menu>
     </div>
   );

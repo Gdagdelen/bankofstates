@@ -15,5 +15,11 @@ class BankService {
   withdraw(transactionInfo) {
     return axiosInstance.post(BASE_URL + "/account/withdraw", transactionInfo);
   }
+  addRecipient(addRecipient) {
+    return axiosInstance.post(BASE_URL + "/account/addRecipient", addRecipient);
+  }
+  getAllUsers() {
+    return axiosInstance.get(BASE_URL + "/user/all");
+  }
 }
 export default new BankService();

@@ -11,29 +11,23 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 
 const columns = [
-  { id: "time", 
-    label: "Transaction Date", 
-    minWidth: 170 
-  },
-  { id: "description", 
-    label: "Description", 
-    minWidth: 200 
-  },
+  { id: "name", label: "Name", minWidth: 170 },
+  { id: "email", label: "Email", minWidth: 200 },
   {
-    id: "type",
-    label: "Type",
+    id: "phone",
+    label: "Contact Number",
     minWidth: 170,
   },
   {
-    id: "amount",
-    label: "Amount",
+    id: "bankName",
+    label: "Bank Name",
     minWidth: 170,
   },
   {
-    id: "availableBalance",
-    label: "Available Balance",
+    id: "bankNumber",
+    label: "Bank Number",
     minWidth: 170,
-  }
+  },
 ];
 
 const useStyles = makeStyles({
@@ -45,16 +39,16 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Transactions() {
+export default function Recipients() {
   const [{ userInfo }] = useStateValue();
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const rows = userInfo.user.transactions;
+  const rows = userInfo.user.recipients;
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-  
+
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);

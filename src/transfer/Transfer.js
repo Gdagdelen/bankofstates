@@ -1,6 +1,7 @@
 import React from "react";
+
 import { Formik, Form, Field } from "formik";
-import { Button, LinearProgress } from "@material-ui/core";
+import { Select, MenuItem, Button, LinearProgress } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
 import service from "../service/bankService";
 import { ToastContainer, toast } from "react-toastify";
@@ -11,35 +12,49 @@ import Transactions from "../account/Transactions";
 import Divider from "@material-ui/core/Divider";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
-import "./Withdraw.css";
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "../styles/typographyStyle.js";
 
 const useStyles = makeStyles(styles);
-const WithdrawSchema = Yup.object().shape({
+
+const TransferSchema = Yup.object().shape({
   amount: Yup.string().required("Required"),
-  comment: Yup.string().required("Required"),
+  recipientName: Yup.string().required("Required"),
 });
-const WithdrawForm = (props) => (
+
+const TransferForm = (props) => (
   <div className="container">
     <fieldset>
-      <legend>Withdraw</legend>
+      <legend>Transfer</legend>
       <Form>
         <div className="row justify-content-start">
+          <div className="col-lg-2 text-center p-3">
+            <FormControl className={classes.formControl}>
+              <InputLabel id="handle">Handle</InputLabel>
+              <Select
+                labelId="handle"
+                id="handle"
+                value={handle}
+                onChange={handleSelect}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value="Ten">Ten</MenuItem>
+                <MenuItem value="Twenty">Twenty</MenuItem>
+                <MenuItem value="Thirty">Thirty</MenuItem>
+              </Select>
+              <FormHelperText>
+                {errors.company && touched.company && errors.company}
+              </FormHelperText>
+            </FormControl>
+          </div>
           <div className="col-lg-2 text-center p-3">
             <Field
               component={TextField}
               name="amount"
               type="number"
               label="Amount"
-            />
-          </div>
-          <div className="col-lg-2 text-center p-3">
-            <Field
-              component={TextField}
-              type="text"
-              label="Comment"
-              name="comment"
             />
           </div>
           <div> {props.isSubmitting && <LinearProgress />}</div>
@@ -51,7 +66,6 @@ const WithdrawForm = (props) => (
               color="primary"
               disabled={props.isSubmitting}
               onClick={props.submitForm}
-              className="withdraw__btn"
             >
               Submit
             </Button>
@@ -61,7 +75,8 @@ const WithdrawForm = (props) => (
     </fieldset>
   </div>
 );
-const Withdraw = () => {
+
+const Transfer = () => {
   const [{ userInfo }, dispatch] = useStateValue();
   const history = useHistory();
   const classes = useStyles();
@@ -75,32 +90,26 @@ const Withdraw = () => {
             <Formik
               initialValues={{
                 amount: null,
-                comment: "",
+                recipientName: "",
               }}
-              validationSchema={WithdrawSchema}
+              validationSchema={TransferSchema}
               onSubmit={(values, actions) => {
-                service.withdraw(values).then((response) => {
+                service.transfer(values).then((response) => {
                   if (response.status === 200) {
                     const userInfo = response.data;
-                    if (userInfo.isSuccess) {
-                      dispatch({
-                        type: "UPDATE",
-                        item: userInfo,
-                      });
-                      toast.success(userInfo.message, {
-                        position: toast.POSITION.TOP_CENTER,
-                      });
-                      actions.resetForm();
-                    } else {
-                      toast.error(userInfo.message, {
-                        position: toast.POSITION.TOP_CENTER,
-                      });
-                    }
+                    dispatch({
+                      type: "UPDATE",
+                      item: userInfo,
+                    });
+                    toast.success(userInfo.message, {
+                      position: toast.POSITION.TOP_CENTER,
+                    });
+                    actions.resetForm();
                   }
                 });
                 actions.setSubmitting(false);
               }}
-              component={WithdrawForm}
+              component={TransferForm}
             ></Formik>
             <ToastContainer />
           </div>
@@ -112,4 +121,5 @@ const Withdraw = () => {
     </div>
   );
 };
-export default Withdraw;
+
+export default Transfer;

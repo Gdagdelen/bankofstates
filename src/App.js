@@ -10,6 +10,8 @@ import Home from "./home/Home";
 import Admin from "./admin/Admin";
 import User from "./user/User";
 import Deposit from "./deposit/Deposit";
+import Withdraw from "./withdraw/Withdraw";
+import AddRecipient from "./transfer/AddRecipient";
 
 
 function App() {
@@ -24,7 +26,9 @@ function App() {
           <Route path="/admin"><Admin /></Route>
           <Route path="/user"><User /></Route>
           <Route path="/deposit"><Deposit /></Route>
-          {/*This is Default Page */}
+          <Route path="/withdraw"><Withdraw /></Route>
+          <Route path="/addRecipient"><AddRecipient /></Route>
+
           <Route path="/"><Home /></Route>
         </Switch>
         <Footer />
